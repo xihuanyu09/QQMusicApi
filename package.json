@@ -41,5 +41,8 @@
     "docsify": "^4",
     "jest": "^28.1.2",
     "prettier": "^2.7.1"
+  },
+  "overrides": {
+    "uglify-js": "2.8.29"
   }
 }
