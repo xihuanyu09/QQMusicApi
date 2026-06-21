@@ -19,7 +19,7 @@
     "README.md"
   ],
   "engines": {
-    "node": ">=12"
+    "node": "18.x"
   },
   "dependencies": {
     "axios": "^0.21.2",
@@ -34,6 +34,7 @@
     "jsonfile": "^5.0.0",
     "moment": "^2.24.0",
     "morgan": "~1.9.1",
+    "uglify-js": "2.8.29",
     "useragent": "^2.3.0",
     "xml2js": "^0.4.22"
   },
