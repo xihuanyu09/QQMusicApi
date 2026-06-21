@@ -13,11 +13,19 @@ const Request = require('./util/request');
 const GlobalCookie = require('./util/globalCookie');
 
 const app = express();
+
+app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', process.env.CORS_ORIGIN || '*');
+  res.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
+
 const dataHandle = new DataStatistics();
 const feedback = new Feedback();
 const cache = new Cache();
 const globalCookie = GlobalCookie();
-
 
 // 每10分钟存一下数据
 config.useDataStatistics && setInterval(() => dataHandle.saveInfo(), 60000 * 10);
@@ -47,7 +55,7 @@ fs.readdirSync(path.join(__dirname, 'routes')).forEach(file => {
       req.query = {
         ...req.query,
         ...req.body,
-        ownCookie: 1,
+        ownCookie: Number(req.query.ownCookie ?? req.body?.ownCookie ?? 0),
       };
       // qq 登录
       let uin = (req.cookies.uin || '');
